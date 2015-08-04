@@ -84,19 +84,6 @@ public class FragmentTabHost extends LinearLayout {
         return tabSpec;
     }
 
-    public TabSpec newTabSpec(String tabTitle, int layoutId, Class fragmentClass) {
-        return newTabSpec(tabTitle, 0, layoutId, fragmentClass);
-    }
-
-    public TabSpec newTabSpec(String tabTitle, int drawableId, int layoutId, Class fragmentClass) {
-        TabSpec tabSpec = new TabSpec();
-        tabSpec.setTabTitle(tabTitle);
-        tabSpec.setDrawableId(drawableId);
-        tabSpec.setLayoutId(layoutId);
-        tabSpec.setClaz(fragmentClass);
-        return tabSpec;
-    }
-
     public void addTab(TabSpec tabSpec) {
         mTabSpec.add(tabSpec);
     }
@@ -109,7 +96,7 @@ public class FragmentTabHost extends LinearLayout {
             params.weight = 1;
 
             for (final TabSpec tabSpec : mTabSpec) {
-                if (tabSpec.getClaz() == null && tabSpec.getFragment() == null) {
+                if (tabSpec.getFragment() == null) {
                     throw (new IllegalArgumentException("Class or fragment should be provided"));
                 } else {
                     if (!TextUtils.isEmpty(tabSpec.getTabTitle()) || tabSpec.getDrawableId() != 0) {
@@ -174,12 +161,7 @@ public class FragmentTabHost extends LinearLayout {
                                     }
                                     v.setSelected(true);
 
-                                    Fragment fragment;
-                                    if (tabSpec.getFragment() != null) {
-                                        fragment = tabSpec.getFragment();
-                                    } else {
-                                        fragment = Fragment.instantiate(getContext(), tabSpec.getClaz().getSimpleName());
-                                    }
+                                    Fragment fragment = tabSpec.getFragment();
                                     if (fragment != null && !fragment.isAdded()) {
                                         mFragmentManager.beginTransaction()
                                                 .replace(R.id.tabContent, fragment)
@@ -219,8 +201,6 @@ public class FragmentTabHost extends LinearLayout {
 
         private Fragment fragment;
 
-        private Class claz;
-
         private String tabTitle;
 
         private int drawableId;
@@ -231,14 +211,6 @@ public class FragmentTabHost extends LinearLayout {
 
         public void setLayoutId(int resourceId) {
             this.layoutId = resourceId;
-        }
-
-        public Class getClaz() {
-            return claz;
-        }
-
-        public void setClaz(Class claz) {
-            this.claz = claz;
         }
 
         public Fragment getFragment() {

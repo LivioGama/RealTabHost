@@ -8,7 +8,7 @@ With TabHost, you can easily achieve this result :
 ![Image](./Screens/tabhost.png "TabHost")
 
 - Use a custom layout for the tab, no `android:id` is needed, the lib will get the first `TextView` and first `ImageView` to set the element
-- Navigate through fragments, by providing a configured fragment or a class to instantiate it
+- Navigate through fragments, by providing a fragment per tab
 - Customize tab bar height
 - Configure normal text and icon color
 - Configure selected text and icon color
