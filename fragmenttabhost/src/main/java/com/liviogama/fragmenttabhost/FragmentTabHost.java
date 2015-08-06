@@ -63,7 +63,7 @@ public class FragmentTabHost extends LinearLayout {
         inflate(getContext(), R.layout.tabhost, this);
         mTabContainer = (LinearLayout) findViewById(R.id.tabContainer);
         mNormalTintColor = Color.WHITE;
-        mNormalTintColor = Color.parseColor("#BED7FF");
+        mSelectedTintColor = Color.parseColor("#BED7FF");
         mTabContainer.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, 150));
     }
 
@@ -97,7 +97,7 @@ public class FragmentTabHost extends LinearLayout {
 
             for (final TabSpec tabSpec : mTabSpec) {
                 if (tabSpec.getFragment() == null) {
-                    throw (new IllegalArgumentException("Class or fragment should be provided"));
+                    throw (new IllegalArgumentException("Non null fragment should be provided"));
                 } else {
                     if (!TextUtils.isEmpty(tabSpec.getTabTitle()) || tabSpec.getDrawableId() != 0) {
                         LayoutInflater inflater = LayoutInflater.from(getContext());
